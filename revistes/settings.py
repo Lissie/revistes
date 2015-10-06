@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'cr9q7g%frwhc*8(c^68ca1a3deo!23o!qktpnmwbs0j0c4r&ci'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', True)
 
 ALLOWED_HOSTS = []
 
@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'manager',
+    #'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -77,9 +78,11 @@ WSGI_APPLICATION = 'revistes.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'dbRevistes'),
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
     }
+    #'default': dj_database_url.config(
+        #default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+    #)
 }
 
 
@@ -96,11 +99,13 @@ USE_L10N = True
 
 USE_TZ = True
 
+#DATE_FORMAT = "d-m-Y"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
